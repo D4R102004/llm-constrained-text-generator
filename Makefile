@@ -22,4 +22,4 @@ clean:
 	find . -type f -name ".coverage" -delete
 
 run:
-	python -m ia_proyecto.interface
+	python -m ai_project.interface

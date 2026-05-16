@@ -54,7 +54,7 @@ make test
 ## Project structure
 
 \`\`\`
-src/ia_proyecto/
+src/ai_project/
   constraints/   — constraint definitions and validators
   generator/     — LLM-based message generation
   evaluator/     — LLM-based constraint satisfaction scoring

@@ -1,6 +1,6 @@
 """Tests for structural constraints."""
 
-from ia_proyecto.constraints.structural import (
+from ai_project.constraints.structural import (
     ForbiddenWordConstraint,
     MaxWordsConstraint,
     MinWordsConstraint,

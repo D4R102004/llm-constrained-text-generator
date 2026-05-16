@@ -2,7 +2,7 @@
 
 import pytest
 
-from ia_proyecto.constraints.base import Constraint  # ✅
+from ai_project.constraints.base import Constraint  # ✅
 
 
 def test_constraint_instantiation_error():

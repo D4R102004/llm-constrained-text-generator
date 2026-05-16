@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ia-proyecto"
+name = "ai-project"
 version = "0.1.0"
 description = "Message generation system under structural constraints using LLMs as generator and evaluator"
 authors = [
@@ -52,7 +52,7 @@ convention = "google"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --cov=src/ia_proyecto --cov-report=term-missing"
+addopts = "-v --cov=src/ai_project --cov-report=term-missing"
 
 [tool.commitizen]
 name = "cz_conventional_commits"

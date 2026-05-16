@@ -1,6 +1,6 @@
 """Structural constraints for the text generator."""
 
-from ia_proyecto.constraints.text_utils import normalize_words
+from ai_project.constraints.text_utils import normalize_words
 
 from .base import Constraint
 

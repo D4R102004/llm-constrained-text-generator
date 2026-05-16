@@ -1,7 +1,7 @@
 """Public interface for the constraints package."""
 
-from ia_proyecto.constraints.base import Constraint
-from ia_proyecto.constraints.structural import (
+from ai_project.constraints.base import Constraint
+from ai_project.constraints.structural import (
     ForbiddenWordConstraint,
     MaxWordsConstraint,
     MinWordsConstraint,
