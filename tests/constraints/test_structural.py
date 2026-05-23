@@ -89,3 +89,34 @@ def test_required_word_constraint_case():
     """Required words match regardless of case."""
     constraint = RequiredWordConstraint(required_words=["hello"])
     assert constraint.is_satisfied("Hello")
+
+
+# Tests for describe()
+
+
+def test_max_words_constraint_describe():
+    """MaxWordsConstraint.describe should include the maximum word limit."""
+    constraint = MaxWordsConstraint(10)
+
+    assert "10" in constraint.describe()
+
+
+def test_min_words_constraint_describe():
+    """MinWordsConstraint.describe should include the minimum word limit."""
+    constraint = MinWordsConstraint(5)
+
+    assert "5" in constraint.describe()
+
+
+def test_forbidden_word_constraint_describe():
+    """ForbiddenWordConstraint.describe should include forbidden words."""
+    constraint = ForbiddenWordConstraint(["sorry"])
+
+    assert "sorry" in constraint.describe()
+
+
+def test_required_word_constraint_describe():
+    """RequiredWordConstraint.describe should include required words."""
+    constraint = RequiredWordConstraint(["help"])
+
+    assert "help" in constraint.describe()
