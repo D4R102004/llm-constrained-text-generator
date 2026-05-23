@@ -9,7 +9,7 @@ class MaxWordsConstraint(Constraint):
     """Constraint that checks if the message does not exceed a maximum word count."""
 
     def __init__(self, max_words: int):
-        """Initialize the MaxWordConstraint.
+        """Initialize the MaxWordsConstraint.
 
         Args:
             max_words: The maximum number of words allowed in the message.
@@ -26,7 +26,16 @@ class MaxWordsConstraint(Constraint):
             True if the message has at most max_words words, False otherwise.
         """
         word_count = len(message.split())
+
         return word_count <= self.max_words
+
+    def describe(self) -> str:
+        """Return a natural language description of this constraint.
+
+        Returns:
+            str: A human-readable description for use in LLM prompts.
+        """
+        return f"The message must have at most {self.max_words} words."
 
 
 class MinWordsConstraint(Constraint):
@@ -50,7 +59,16 @@ class MinWordsConstraint(Constraint):
             True if the message has at least min_words words, False otherwise.
         """
         word_count = len(message.split())
+
         return word_count >= self.min_words
+
+    def describe(self) -> str:
+        """Return a natural language description of this constraint.
+
+        Returns:
+            str: A human-readable description for use in LLM prompts.
+        """
+        return f"The message must have at least {self.min_words} words."
 
 
 class ForbiddenWordConstraint(Constraint):
@@ -74,7 +92,18 @@ class ForbiddenWordConstraint(Constraint):
             True if the message does not contain any forbidden words, False otherwise.
         """
         words = normalize_words(message)
+
         return self.forbidden_words.isdisjoint(words)
+
+    def describe(self) -> str:
+        """Return a natural language description of this constraint.
+
+        Returns:
+            str: A human-readable description for use in LLM prompts.
+        """
+        forbidden = ", ".join(sorted(self.forbidden_words))
+
+        return f"The message must not contain the following words: {forbidden}."
 
 
 class RequiredWordConstraint(Constraint):
@@ -98,4 +127,15 @@ class RequiredWordConstraint(Constraint):
             True if the message contains all required words, False otherwise.
         """
         words = normalize_words(message)
+
         return self.required_words.issubset(words)
+
+    def describe(self) -> str:
+        """Return a natural language description of this constraint.
+
+        Returns:
+            str: A human-readable description for use in LLM prompts.
+        """
+        required = ", ".join(sorted(self.required_words))
+
+        return f"The message must contain the following words: {required}."

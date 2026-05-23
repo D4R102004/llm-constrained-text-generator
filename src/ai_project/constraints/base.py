@@ -18,3 +18,13 @@ class Constraint(ABC):
 
         """
         pass
+
+    @abstractmethod
+    def describe(self) -> str:
+        """Return a natural language description of this constraint.
+
+        Returns:
+            str: A human-readable description for use in LLM prompts.
+
+        """
+        pass
