@@ -55,4 +55,4 @@ class OllamaGenerator(Generator):
             ],
         )
 
-        return response.message.content
+        return response.message.content or ""
