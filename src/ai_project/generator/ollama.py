@@ -30,20 +30,30 @@ class OllamaGenerator(Generator):
         self,
         topic: str,
         constraints: list[Constraint],
+        feedback: list[Constraint] | None = None,
     ) -> str:
         """Generate a message that satisfies the given constraints.
 
-        Builds a prompt from the topic and constraints, sends it
-        to the Ollama model, and returns the generated message.
+        Builds a prompt from the topic, constraints, and optional
+        feedback from previous failed attempts. Sends it to the
+        Ollama model and returns the generated message.
 
         Args:
-            topic: The topic or subject for the generated message.
-            constraints: Constraints the generated message must satisfy.
+            topic:
+                The topic or subject for the generated message.
+            constraints:
+                Constraints the generated message must satisfy.
+            feedback:
+                Constraints that failed in previous attempts.
 
         Returns:
             The generated message as a string.
         """
-        prompt = build_prompt(topic, constraints)
+        prompt = build_prompt(
+            topic,
+            constraints,
+            feedback,
+        )
 
         response = self.client.chat(
             model=self.model,

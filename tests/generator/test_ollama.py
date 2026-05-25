@@ -69,3 +69,73 @@ def test_generate_sends_prompt_with_constraints():
 
     assert "customer support" in prompt
     assert "at most 10 words" in prompt
+
+
+def test_generate_without_feedback():
+    """OllamaGenerator does not include feedback section without feedback."""
+    # Arrange
+    mock_response = MagicMock()
+    mock_response.message.content = "I can help you."
+
+    mock_client = MagicMock()
+    mock_client.chat.return_value = mock_response
+
+    generator = OllamaGenerator(
+        model="llama3.2:3b",
+        base_url="http://localhost:11434",
+    )
+
+    generator.client = mock_client
+
+    constraints = [
+        MaxWordsConstraint(10),
+    ]
+
+    # Act
+    generator.generate(
+        topic="customer support",
+        constraints=constraints,
+    )
+
+    # Assert
+    prompt = mock_client.chat.call_args.kwargs["messages"][0]["content"]
+
+    assert "Previous attempts failed" not in prompt
+
+
+def test_generate_with_feedback():
+    """OllamaGenerator includes failed constraints feedback in the prompt."""
+    # Arrange
+    mock_response = MagicMock()
+    mock_response.message.content = "I can help you."
+
+    mock_client = MagicMock()
+    mock_client.chat.return_value = mock_response
+
+    generator = OllamaGenerator(
+        model="llama3.2:3b",
+        base_url="http://localhost:11434",
+    )
+
+    generator.client = mock_client
+
+    constraints = [
+        MaxWordsConstraint(10),
+    ]
+
+    feedback = [
+        MaxWordsConstraint(5),
+    ]
+
+    # Act
+    generator.generate(
+        topic="customer support",
+        constraints=constraints,
+        feedback=feedback,
+    )
+
+    # Assert
+    prompt = mock_client.chat.call_args.kwargs["messages"][0]["content"]
+
+    assert "Previous attempts failed" in prompt
+    assert "at most 5 words" in prompt
