@@ -13,13 +13,19 @@ class Generator(ABC):
         self,
         topic: str,
         constraints: list[Constraint],
+        feedback: list[Constraint] | None = None,
     ) -> str:
         """Generate a message that satisfies the given constraints.
 
         Args:
-            topic: The topic or subject for the message.
-            constraints: Constraints the generated message must satisfy.
+            topic:
+                The topic or subject for the message.
+            constraints:
+                Constraints the generated message must satisfy.
+            feedback:
+                Constraints that failed in previous generation attempts.
 
         Returns:
             A generated message as a string.
         """
+        pass
