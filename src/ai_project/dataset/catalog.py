@@ -18,6 +18,8 @@ from ai_project.dataset.models import Instance
 # ---------------------------------------------------------------------------
 
 AI_EDUCATION = Instance(
+    name="ai_education",
+    difficulty="easy",
     topic="Benefits of artificial intelligence in education",
     constraints=[
         MinWordsConstraint(20),
@@ -26,6 +28,8 @@ AI_EDUCATION = Instance(
 )
 
 HEALTHY_HABITS = Instance(
+    name="healthy_habits",
+    difficulty="easy",
     topic="Healthy daily habits",
     constraints=[
         MinWordsConstraint(15),
@@ -34,6 +38,8 @@ HEALTHY_HABITS = Instance(
 )
 
 RENEWABLE_ENERGY = Instance(
+    name="renewable_energy",
+    difficulty="easy",
     topic="Importance of renewable energy",
     constraints=[
         MinWordsConstraint(20),
@@ -41,12 +47,13 @@ RENEWABLE_ENERGY = Instance(
     ],
 )
 
-
 # ---------------------------------------------------------------------------
 # Medium instances
 # ---------------------------------------------------------------------------
 
 REMOTE_WORK = Instance(
+    name="remote_work",
+    difficulty="medium",
     topic="Advantages and challenges of remote work",
     constraints=[
         MinWordsConstraint(30),
@@ -56,6 +63,8 @@ REMOTE_WORK = Instance(
 )
 
 CYBERSECURITY = Instance(
+    name="cybersecurity",
+    difficulty="medium",
     topic="Cybersecurity best practices",
     constraints=[
         MinWordsConstraint(25),
@@ -65,6 +74,8 @@ CYBERSECURITY = Instance(
 )
 
 CLIMATE_CHANGE = Instance(
+    name="climate_change",
+    difficulty="medium",
     topic="Actions to mitigate climate change",
     constraints=[
         MinWordsConstraint(30),
@@ -74,6 +85,8 @@ CLIMATE_CHANGE = Instance(
 )
 
 ONLINE_LEARNING = Instance(
+    name="online_learning",
+    difficulty="medium",
     topic="The impact of online learning",
     constraints=[
         MaxWordsConstraint(50),
@@ -82,12 +95,13 @@ ONLINE_LEARNING = Instance(
     ],
 )
 
-
 # ---------------------------------------------------------------------------
 # Difficult instances
 # ---------------------------------------------------------------------------
 
 SPACE_EXPLORATION = Instance(
+    name="space_exploration",
+    difficulty="hard",
     topic="Future of space exploration",
     constraints=[
         MinWordsConstraint(40),
@@ -98,6 +112,8 @@ SPACE_EXPLORATION = Instance(
 )
 
 MENTAL_HEALTH = Instance(
+    name="mental_health",
+    difficulty="hard",
     topic="Raising awareness about mental health",
     constraints=[
         MinWordsConstraint(35),
@@ -108,6 +124,8 @@ MENTAL_HEALTH = Instance(
 )
 
 SUSTAINABLE_CITIES = Instance(
+    name="sustainable_cities",
+    difficulty="hard",
     topic="Building sustainable cities",
     constraints=[
         MinWordsConstraint(40),
@@ -116,7 +134,6 @@ SUSTAINABLE_CITIES = Instance(
         ForbiddenWordConstraint(["pollution"]),
     ],
 )
-
 
 INSTANCES = [
     AI_EDUCATION,
