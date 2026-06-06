@@ -46,14 +46,14 @@ def run_instances(optimizer: Optimizer) -> list[OptimizationResult]:
     """
     results: list[OptimizationResult] = []
     for instance in INSTANCES:
-        message = optimizer.optimize(
+        run = optimizer.optimize(
             topic=instance.topic,
             constraints=instance.constraints,
         )
         results.append(
             OptimizationResult(
                 instance=instance,
-                message=message,
+                message=run.message,
             )
         )
     return results

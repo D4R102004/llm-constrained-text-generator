@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 from ai_project.constraints import MinWordsConstraint
 from ai_project.dataset.models import Instance
 from ai_project.interface.main import OptimizationResult, run_instances
+from ai_project.optimizer.run import OptimizationRun
 
 
 @patch("ai_project.interface.main.INSTANCES")
@@ -32,8 +33,12 @@ def test_run_instances_returns_results_for_all_instances(
     mock_instances.__iter__.return_value = iter(instances)
     optimizer = Mock()
     optimizer.optimize.side_effect = [
-        "Generated message 1",
-        "Generated message 2",
+        OptimizationRun(
+            message="Generated message 1", iterations_used=1, score_history=(1.0,)
+        ),
+        OptimizationRun(
+            message="Generated message 2", iterations_used=1, score_history=(1.0,)
+        ),
     ]
     results = run_instances(optimizer)
     assert results == [

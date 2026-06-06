@@ -25,7 +25,9 @@ def test_returns_best_message_found() -> None:
 
     result = optimizer.optimize("topic", [])
 
-    assert result == "best message"
+    assert result.message == "best message"
+    assert result.iterations_used == 3
+    assert result.score_history == (0.2, 0.8, 0.5)
 
 
 def test_keeps_previous_best_message_when_score_decreases() -> None:
@@ -47,7 +49,9 @@ def test_keeps_previous_best_message_when_score_decreases() -> None:
 
     result = optimizer.optimize("topic", [])
 
-    assert result == "best message"
+    assert result.message == "best message"
+    assert result.iterations_used == 2
+    assert result.score_history == (0.8, 0.4)
 
 
 def test_stops_early_when_perfect_score_is_reached() -> None:
@@ -70,7 +74,10 @@ def test_stops_early_when_perfect_score_is_reached() -> None:
 
     result = optimizer.optimize("topic", [])
 
-    assert result == "perfect message"
+    assert result.message == "perfect message"
+    assert result.iterations_used == 2
+    assert result.score_history == (0.7, 1.0)
+
     assert generator.generate.call_count == 2
     assert evaluator.evaluate.call_count == 2
 
@@ -89,7 +96,10 @@ def test_respects_max_iterations() -> None:
         max_iterations=3,
     )
 
-    optimizer.optimize("topic", [])
+    result = optimizer.optimize("topic", [])
+
+    assert result.iterations_used == 3
+    assert result.score_history == (0.5, 0.5, 0.5)
 
     assert generator.generate.call_count == 3
     assert evaluator.evaluate.call_count == 3
@@ -115,10 +125,14 @@ def test_passes_failed_constraints_as_feedback() -> None:
         max_iterations=1,
     )
 
-    optimizer.optimize(
+    result = optimizer.optimize(
         "topic",
         [failed_constraint, satisfied_constraint],
     )
+
+    assert result.message == "candidate"
+    assert result.iterations_used == 1
+    assert result.score_history == (0.5,)
 
     generator.generate.assert_called_once_with(
         topic="topic",
