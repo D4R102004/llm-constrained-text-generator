@@ -11,6 +11,7 @@ from ai_project.constraints.base import Constraint
 from ai_project.evaluator.base import Evaluator
 from ai_project.generator.base import Generator
 from ai_project.optimizer.base import Optimizer
+from ai_project.optimizer.run import OptimizationRun
 
 
 class GreedyOptimizer(Optimizer):
@@ -42,7 +43,11 @@ class GreedyOptimizer(Optimizer):
         self.evaluator = evaluator
         self.max_iterations = max_iterations
 
-    def optimize(self, topic: str, constraints: list[Constraint]) -> str:
+    def optimize(
+        self,
+        topic: str,
+        constraints: list[Constraint],
+    ) -> OptimizationRun:
         """Searches for the highest-scoring message for a topic.
 
         The method repeatedly generates candidate messages, evaluates
@@ -61,13 +66,15 @@ class GreedyOptimizer(Optimizer):
                 satisfy.
 
         Returns:
-            The highest-scoring message found during the optimization
-            process.
+            An OptimizationRun containing the best message found and
+            metadata describing the optimization process.
         """
         best_message = ""
         best_score = 0.0
+        score_history: list[float] = []
+        iterations_used = 0
 
-        for _ in range(self.max_iterations):
+        for iteration in range(self.max_iterations):
             failed_constraints = [
                 constraint
                 for constraint in constraints
@@ -81,6 +88,8 @@ class GreedyOptimizer(Optimizer):
             )
 
             score = self.evaluator.evaluate(candidate, constraints)
+            score_history.append(score)
+            iterations_used = iteration + 1
 
             if score > best_score:
                 best_message = candidate
@@ -89,4 +98,8 @@ class GreedyOptimizer(Optimizer):
             if best_score == 1.0:
                 break
 
-        return best_message
+        return OptimizationRun(
+            message=best_message,
+            iterations_used=iterations_used,
+            score_history=tuple(score_history),
+        )
