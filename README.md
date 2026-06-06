@@ -13,47 +13,61 @@ The LLM acts as both generator and evaluator in an optimization loop.
 ## Requirements
 
 - Python 3.12+
-- [Ollama](https://ollama.com) running locally with `llama3.2:8b`
+- [Ollama](https://ollama.com) running locally with `llama3.2:3b`
 
 ## Setup
 
 ### 1. Clone and create virtual environment
-\`\`\`bash
+
+```bash
 git clone git@github.com:D4R102004/llm-constrained-text-generator.git
 cd llm-constrained-text-generator
 python3.12 -m venv .venv
 source .venv/bin/activate
-\`\`\`
+```
 
 ### 2. Install dependencies
-\`\`\`bash
+
+```bash
 make install
-\`\`\`
+```
 
 ### 3. Configure
-\`\`\`bash
+
+```bash
 cp .env.example .env
 # Edit .env if needed
-\`\`\`
+```
 
 ### 4. Start Ollama and pull the model
-\`\`\`bash
-ollama pull llama3.2:8b
-\`\`\`
+
+```bash
+ollama pull llama3.2:3b
+```
 
 ### 5. Run
-\`\`\`bash
+
+```bash
 make run
-\`\`\`
+```
 
 ### 6. Run tests
-\`\`\`bash
+
+```bash
 make test
-\`\`\`
+```
+
+### 7. Run experiments
+
+```bash
+python experiments/run.py
+```
+
+Results are saved to `experiments/results/results.json`.
 
 ## Project structure
 
-\`\`\`
+```text
 src/ai_project/
   constraints/   — constraint definitions and validators
   generator/     — LLM-based message generation
@@ -62,18 +76,20 @@ src/ai_project/
   dataset/       — test instance generation
   interface/     — CLI entry point
   utils/         — shared helpers
+
 experiments/     — configs and results
 docs/            — technical report
 notebooks/       — exploratory analysis
-\`\`\`
+```
 
 ## Architecture
 
 The system uses an optimization loop where:
-1. The **generator** (LLM) produces candidate messages given constraints
-2. The **evaluator** (LLM) scores each candidate against all constraints
-3. The **optimizer** (search algorithm) guides generation toward better solutions
+
+1. The **generator** (LLM) produces candidate messages given constraints.
+2. The **evaluator** (LLM) scores each candidate against all constraints.
+3. The **optimizer** (search algorithm) guides generation toward better solutions.
 
 ## License
 
-Academic project — Universidad de La Habana, 2025-2026
+Academic project — Universidad de La Habana, 2025-2026.
